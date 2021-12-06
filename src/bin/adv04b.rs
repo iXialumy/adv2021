@@ -8,7 +8,7 @@ fn main() {
     let numbers = input
         .next()
         .unwrap()
-        .split(",")
+        .split(',')
         .map(|num| num.parse::<u32>().unwrap())
         .collect_vec();
 
@@ -21,11 +21,11 @@ fn main() {
     println!("Score: {}", score);
 }
 
-fn find_last_winning_board(numbers: &Vec<u32>, boards: Vec<Board>) -> u32 {
+fn find_last_winning_board(numbers: &[u32], boards: Vec<Board>) -> u32 {
     let mut winning_board = None;
     let mut last_number = 0;
 
-    let mut boards = boards.to_owned();
+    let mut boards = boards;
 
     for n in numbers {
         let winners = boards
@@ -41,7 +41,9 @@ fn find_last_winning_board(numbers: &Vec<u32>, boards: Vec<Board>) -> u32 {
 
         last_number = *n;
 
-        if boards.is_empty() {break;}
+        if boards.is_empty() {
+            break;
+        }
     }
 
     if let Some(board) = winning_board {
@@ -84,7 +86,7 @@ impl Board {
     }
 
     fn won(&self) -> bool {
-        if self.mask.iter().any(|line| line.iter().all(|&n| n == true)) {
+        if self.mask.iter().any(|line| line.iter().all(|&n| n)) {
             return true;
         }
 
@@ -92,7 +94,7 @@ impl Board {
             let mut count = 0;
 
             for j in 0..5 {
-                if self.mask[j][i] == true {
+                if self.mask[j][i] {
                     count += 1
                 }
             }

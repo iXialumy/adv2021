@@ -12,7 +12,7 @@ fn main() {
     println!("{:?}", oxygen_generator_rating * co2_scrubber_rating);
 }
 
-fn find_oxygen_generator_rating(lines: &Vec<&str>) -> i32 {
+fn find_oxygen_generator_rating(lines: &[&str]) -> i32 {
     let m = |ord| match ord {
         Ordering::Less => 0,
         _ => 1,
@@ -21,7 +21,7 @@ fn find_oxygen_generator_rating(lines: &Vec<&str>) -> i32 {
     find_for_ord(lines, m)
 }
 
-fn find_co2_scrubber_rating(lines: &Vec<&str>) -> i32 {
+fn find_co2_scrubber_rating(lines: &[&str]) -> i32 {
     let m = |ord| match ord {
         Ordering::Less => 1,
         _ => 0,
@@ -30,13 +30,13 @@ fn find_co2_scrubber_rating(lines: &Vec<&str>) -> i32 {
     find_for_ord(lines, m)
 }
 
-fn find_for_ord<F>(lines: &Vec<&str>, m: F) -> i32
+fn find_for_ord<F>(lines: &[&str], m: F) -> i32
 where
     F: Fn(Ordering) -> i32,
 {
     let mut lines = lines
         .iter()
-        .map(|line| line.chars().map(|c| adv2021::parse_bit(c)).collect_vec())
+        .map(|line| line.chars().map(adv2021::parse_bit).collect_vec())
         .collect_vec();
     let mut index = 0;
     while lines.len() > 1 {
@@ -49,7 +49,7 @@ where
     i32::from_str_radix(&lines[0].iter().join(""), 2).unwrap()
 }
 
-fn freq(v: &Vec<Vec<i32>>, index: usize) -> i32 {
+fn freq(v: &[Vec<i32>], index: usize) -> i32 {
     v.iter().fold(0, |mut acc, line| {
         acc += line[index];
         acc

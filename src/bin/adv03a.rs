@@ -6,10 +6,12 @@ fn main() {
     let half_items = input.lines().count() as i32 / 2;
 
     let hist = adv2021::histogram(input, width);
-    let most = hist.iter()
+    let most = hist
+        .iter()
         .map(|i| if i > &half_items { 1 } else { 0 })
         .collect::<Vec<_>>();
-    let least = most.iter()
+    let least = most
+        .iter()
         .map(|&i| if i == 1 { 0 } else { 1 })
         .collect::<Vec<_>>();
 
