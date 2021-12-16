@@ -8,4 +8,5 @@ edition = "2021"
 [dependencies]
 ansi_term = "0.12"
 itertools = "0.10"
+num = "0.4"
 regex = "1"
