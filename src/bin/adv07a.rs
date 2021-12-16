@@ -4,22 +4,25 @@ use itertools::{Itertools, MinMaxResult};
 
 fn main() {
     let input = include_str!("../../resources/input07.txt")
-                    .split(',')
-                    .map(|c| c.parse::<usize>().unwrap())
-                    .collect_vec();
+        .split(',')
+        .map(|c| c.parse::<usize>().unwrap())
+        .collect_vec();
 
     let lowest = find_lowest_fuel_cost(&input);
 
     println!("{}", lowest);
 }
 
-fn find_lowest_fuel_cost(input: &[usize]) -> usize{
+fn find_lowest_fuel_cost(input: &[usize]) -> usize {
     let minmax = input.iter().minmax();
 
     let min;
     let max;
     match minmax {
-        MinMaxResult::MinMax(x, y) => {min = *x; max = *y},
+        MinMaxResult::MinMax(x, y) => {
+            min = *x;
+            max = *y
+        }
         MinMaxResult::OneElement(x) => return *x,
         MinMaxResult::NoElements => panic!("Empty input list"),
     }

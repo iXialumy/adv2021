@@ -36,7 +36,7 @@ fn find_lowest_fuel_cost(input: &[usize]) -> usize {
             .map(|x| {
                 let n = x.abs_diff(i);
                 n * (n + 1) / 2 // Sum of numbers 1..n
-            }) 
+            })
             .sum();
     }
 

@@ -3,12 +3,14 @@ const SIZE: usize = 9;
 fn main() {
     let input = include_str!("../../resources/input06.txt");
 
-    let mut nums: [u128; SIZE] = input.split(',')
-        .map(|n| n.parse::<usize>().unwrap())
-        .fold([0u128; SIZE], |mut acc, n|  {
-            acc[n as usize] += 1;
-            acc
-        });
+    let mut nums: [u128; SIZE] =
+        input
+            .split(',')
+            .map(|n| n.parse::<usize>().unwrap())
+            .fold([0u128; SIZE], |mut acc, n| {
+                acc[n as usize] += 1;
+                acc
+            });
 
     for _ in 0..80 {
         simulate_day(&mut nums);
@@ -16,7 +18,7 @@ fn main() {
 
     println!("After 80 days: {}", nums.iter().sum::<u128>());
 
-    for _ in 0..(256-80) {
+    for _ in 0..(256 - 80) {
         simulate_day(&mut nums);
     }
 
