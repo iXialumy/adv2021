@@ -61,6 +61,7 @@ fn increment_neighbours(grid: &mut [Vec<i32>], i: usize, j: usize) {
     let miny = if j == 0 { 0 } else { j - 1 };
     let maxy = if j == boundsy { boundsy } else { j + 1 };
 
+    #[allow(clippy::needless_range_loop)]
     for x in minx..=maxx {
         for y in miny..=maxy {
             if (x == i && y == j) || grid[x][y] == 0 {
