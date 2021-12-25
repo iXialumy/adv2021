@@ -51,7 +51,7 @@ fn rewire<'a>(digit: &&str, mappings: &'a HashMap<char, char>) -> Vec<&'a char> 
 
 /// Convert set of segments to corresponding digit
 fn get_digit(chars: Vec<&char>) -> usize {
-    let sorted_chars = chars.iter().sorted().join("");
+    let sorted_chars = chars.iter().sorted_unstable().join("");
     for (i, &num) in NUMBERS.iter().enumerate() {
         if sorted_chars == num {
             return i;
@@ -98,7 +98,7 @@ fn check_combination(mapping: &HashMap<char, char>, numbers: &[&str]) -> bool {
             num
         })
         .map(|num| num.iter().join(""))
-        .sorted()
+        .sorted_unstable()
         .collect_vec();
 
     sorted.iter().zip(mapped.iter()).all(|(s, m)| s == m)
