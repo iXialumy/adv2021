@@ -1,4 +1,5 @@
 /target
+/.vscode
 /.idea/vcs.xml
 /.idea/modules.xml
 /.idea/deployment.xml
