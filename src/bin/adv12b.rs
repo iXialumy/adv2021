@@ -36,7 +36,10 @@ fn paths_with_max_length2<'a>(
             continue;
         }
 
-        if n.chars().all(|c| c.is_lowercase()) && path.contains(&n) && has_duplicate_small_caves(&path) {
+        if n.chars().all(|c| c.is_lowercase())
+            && path.contains(&n)
+            && has_duplicate_small_caves(&path)
+        {
             continue;
         }
 
