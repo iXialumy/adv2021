@@ -39,7 +39,10 @@ fn to_2d_grid(input: &str) -> Vec<Vec<usize>> {
     let mut expanded_grid = Vec::new();
     for i in 0..5 {
         for line in &expanded_line {
-            let incremented_line = line.iter().map(move |&n| rollover_increment(n, i)).collect_vec();
+            let incremented_line = line
+                .iter()
+                .map(move |&n| rollover_increment(n, i))
+                .collect_vec();
             expanded_grid.push(incremented_line);
         }
     }
