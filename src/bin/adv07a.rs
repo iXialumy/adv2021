@@ -1,5 +1,3 @@
-#![feature(int_abs_diff)]
-
 use itertools::{Itertools, MinMaxResult};
 
 fn main() {
@@ -16,16 +14,13 @@ fn main() {
 fn find_lowest_fuel_cost(input: &[usize]) -> usize {
     let minmax = input.iter().minmax();
 
-    let min;
-    let max;
-    match minmax {
+    let (min, max) = match minmax {
         MinMaxResult::MinMax(x, y) => {
-            min = *x;
-            max = *y
+            (*x,*y)
         }
         MinMaxResult::OneElement(x) => return *x,
         MinMaxResult::NoElements => panic!("Empty input list"),
-    }
+    };
 
     let range = max - min;
     let mut costs = vec![0; range];

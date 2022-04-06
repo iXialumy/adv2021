@@ -17,7 +17,7 @@ fn parse_input(input: &str) -> GraphMap<&str, (), Undirected> {
     println!("Parsing inputs...");
     let tuples = input
         .lines()
-        .map(|line| line.split_once("-").unwrap())
+        .map(|line| line.split_once('-').unwrap())
         .collect_vec();
 
     UnGraphMap::<&str, ()>::from_edges(tuples)

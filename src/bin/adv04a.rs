@@ -19,7 +19,7 @@ fn main() {
     println!("Score: {}", score);
 }
 
-fn find_first_winning_board(numbers: &[u32], boards: &mut Vec<Board>) -> u32 {
+fn find_first_winning_board(numbers: &[u32], boards: &mut [Board]) -> u32 {
     for n in numbers {
         boards.iter_mut().for_each(|board| board.update_board(n));
 

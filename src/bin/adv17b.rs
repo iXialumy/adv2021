@@ -1,3 +1,4 @@
+#![feature(test)]
 #![allow(unused)]
 use indicatif::{ProgressBar, ProgressStyle};
 use itertools::{Itertools, MinMaxResult};
@@ -32,6 +33,7 @@ fn hits(maxy: i64, minx: i64, target: &Area) -> Vec<(i64, i64)> {
         ProgressStyle::default_bar()
             .template("[{elapsed_precise}] {wide_bar} {per_sec} {pos:>}/{len:} {eta}"),
     );
+    pb.set_draw_rate(20);
 
     let hits: Vec<_> = (target.miny..=maxy)
         .rev()
@@ -99,8 +101,9 @@ fn check_velocities(x0: i64, y0: i64, target: &Area) -> bool {
     };
 
     // Calculation approach
-    for timestep in 0..=max_timesteps {
-        let x = (0..=x0).rev().take(timestep).sum::<i64>();
+    for timestep in 0..=max_timesteps as i64 {
+        // let x = (0..=x0).rev().take(timestep as usize).sum::<i64>();
+        let x = sumto(x0) - sumto(max(0, x0 - timestep));
         let t = timestep as f64;
         let y = ((y0 as f64 + 0.5) * t - ((t * t) / 2.0)) as i64;
         if (target.minx..=target.maxx).contains(&x) && (target.miny..=target.maxy).contains(&y) {
@@ -111,11 +114,17 @@ fn check_velocities(x0: i64, y0: i64, target: &Area) -> bool {
     false
 }
 
+#[inline(always)]
+fn sumto(n: i64) -> i64 {
+    n * (n + 1) / 2
+}
+
 #[cfg(test)]
 mod test {
-    use itertools::MinMaxResult;
-
+    extern crate test;
     use super::*;
+    use itertools::MinMaxResult;
+    use test::Bencher;
 
     #[test]
     fn parse() {
@@ -145,6 +154,30 @@ mod test {
         let hit = check_velocities(7, 2, &area);
 
         assert!(hit);
+    }
+
+    fn check_velocities_bench(b: &mut Bencher) {
+        let area = Area {
+            minx: 20,
+            maxx: 30,
+            miny: -10,
+            maxy: -5,
+        };
+        b.iter(|| {
+            let hit = check_velocities(7, 2, &area);
+        });
+    }
+
+    #[test]
+    fn times_calculation() {
+        let timestep = 10;
+        for x0 in 0..20 {
+            let expected = (0..=x0).rev().take(timestep).sum::<i64>();
+
+            let sumto = |n| n * (n + 1) / 2;
+            let actual = sumto(x0) - sumto(max(0, x0 - timestep as i64));
+            assert_eq!(expected, actual);
+        }
     }
 
     #[test]

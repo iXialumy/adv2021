@@ -37,7 +37,7 @@ impl FromStr for DirectionLine {
     type Err = ();
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let (direction, n) = s.split_once(" ").ok_or(())?;
+        let (direction, n) = s.split_once(' ').ok_or(())?;
 
         let direction = match direction {
             "forward" => Direction::Forward,
