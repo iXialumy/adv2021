@@ -37,7 +37,6 @@ fn hits(maxy: i64, minx: i64, target: &Area) -> Vec<(i64, i64)> {
 
     let hits: Vec<_> = (target.miny..=maxy)
         .rev()
-        .par_bridge()
         .flat_map(|y| {
             (minx..=target.maxx)
                 .filter_map(|x| {
